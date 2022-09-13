@@ -79,11 +79,13 @@
     function setFluff(){
         if (weatherTxt.includes('sunny')){
             weatherTxt = 'Fram med solbrillene, babyolja og paraplydrinken, det er sol som bare faen!'
+        } if (weatherTxt.includes('part')){
+            weatherTxt = 'Du kan godt gå ut å myse litt på sola, men det er nesten ikke noe vits for det er faenmeg ikke mer enn såvidt den synes'
         } if (weatherTxt.includes('cloud')){
             weatherTxt = 'Nesten like greit å holde seg inne, det er faen ikke sol ute en gang'
         } if (weatherTxt.includes('rain')){
             weatherTxt = 'Håper du husker hvor du la sydvesten din, for det her blir faenmeg vått'
-        }
+        } 
 
     }
 
