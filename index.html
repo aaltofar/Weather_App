@@ -67,6 +67,11 @@
                 weatherIcon = `<img src="${condition.icon}" alt="Weather icon" width="64" height="64">`
                 soneOgFylke = region + '<br>' + tz_id;
                 setFluff()
+                if (citySearch.toLowerCase() == 'drammen'){
+                    degreeFeels = 'men det føles bokstavelig talt, uten å overdrive, ut som helvete fordi det finnes ingen verre plass enn denne parodien av en by'
+                    degrees = temp_c + '°C';
+                    weatherTxt = 'Flytt herfra ASAP'
+                }
                 updateView()
             })
     }
