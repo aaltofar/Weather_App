@@ -41,10 +41,9 @@
     function setCity(city) {
         currentCity = city.charAt(0).toUpperCase() + city.slice(1);
         let citySearch = currentCity.split(' ').join('-');
-        https://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}
         console.log(citySearch)
         updateView()
-        fetch(`http://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}`)
+        fetch(`https://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
