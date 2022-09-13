@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enda en jævla vær-app</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id=app></div>
+
+    <script>
+    //model
+        let currentCity = '';
+        let weatherIcon = '';
+        let degrees = '';
+        let weatherTxt = '';
+        let windStr;
+        let windTxt;
+        let degreeFeels;
+    //view
+    updateView()
+    function updateView(){
+    document.getElementById('app').innerHTML = /*HTML*/`
+    <input onchange='setCity(this.value)' class="input" type="text" autofocus placeholder="Hvor bor du?">
+    <div class="location">
+        <h1 class="location-timezone">${currentCity}</h1>
+        ${weatherIcon}
+    </div>
+    <div class="temperature">
+        <div class="degree-section">
+            <h2 class="temperature-degree">${degrees}</h2>
+        </div>
+        <div class="temperature-description">${weatherTxt}</div>
+    </div>
+    `;
+    }
+    //controller
+    
+    function setCity(city) {
+        currentCity = city.charAt(0).toUpperCase() + city.slice(1);
+        let citySearch = currentCity.split(' ').join('-');
+        http://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}
+        console.log(citySearch)
+        updateView()
+        fetch(`http://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                const { temp_c, feelslike_c, wind_kph, condition } = data.current;
+                degrees = temp_c + '°C';
+                degreeFeels = feelslike_c;
+                windStr = wind_kph;
+                weatherTxt = condition.text;
+                weatherIcon = `<img src="${condition.icon}" alt="Weather icon" width="64" height="64"> ;`
+                updateView()
+            })
+    }
+
+    
+    </script>
+</body>
+</html>
