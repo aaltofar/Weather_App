@@ -42,10 +42,20 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
+}
+
+.litenTxt{
+    text-decoration: wavy;
+    font-size: small;
 }
 
 .temperature{
     flex-direction: column;
+}
+
+.temperature-degree{
+    text-align: center;
 }
 
 .degree-section{

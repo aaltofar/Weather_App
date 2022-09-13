@@ -18,26 +18,33 @@
         let weatherTxt = '';
         let windStr;
         let windTxt;
-        let degreeFeels;
+        let degreeFeels = '';
+        let soneOgFylke = '';
     //view
     updateView()
     function updateView(){
     document.getElementById('app').innerHTML = /*HTML*/`
     <input onchange='setCity(this.value)' class="input" type="text" autofocus placeholder="Hvor bor du?">
     <div class="location">
-        <h1 class="location-timezone">${currentCity}</h1>
+        <h1 class="location-timezone">
+            ${currentCity} <br>
+            <span class="litenTxt">${soneOgFylke}</span>
+            </h1>
         ${weatherIcon}
     </div>
     <div class="temperature">
         <div class="degree-section">
-            <h2 class="temperature-degree">${degrees}</h2>
+            <h2 class="temperature-degree">
+                ${degrees} <br>
+                <span class="litenTxt">${degreeFeels}</span>
+                </h2>
+            
         </div>
         <div class="temperature-description">${weatherTxt}</div>
     </div>
     `;
     }
     //controller
-    
     function setCity(city) {
         currentCity = city.charAt(0).toUpperCase() + city.slice(1);
         let citySearch = currentCity.split(' ').join('-');
@@ -48,13 +55,31 @@
             .then(data => {
                 console.log(data)
                 const { temp_c, feelslike_c, wind_kph, condition } = data.current;
+                const { region, tz_id } = data.location;
                 degrees = temp_c + '°C';
-                degreeFeels = feelslike_c;
+                if (feelslike_c === temp_c){
+                    degreeFeels = '';
+                } else {
+                    degreeFeels = 'men det føles ut som ' + feelslike_c + '°C';
+                }
                 windStr = wind_kph;
-                weatherTxt = condition.text;
+                weatherTxt = condition.text.toLowerCase();
                 weatherIcon = `<img src="${condition.icon}" alt="Weather icon" width="64" height="64">`
+                soneOgFylke = region + '<br>' + tz_id;
+                setFluff()
                 updateView()
             })
+    }
+
+    function setFluff(){
+        if (weatherTxt.includes('sunny')){
+            weatherTxt = 'Fram med solbrillene, babyolja og paraplydrinken, det er sol som bare faen!'
+        } if (weatherTxt.includes('cloud')){
+            weatherTxt = 'Nesten like greit å holde seg inne, det er faen ikke sol ute en gang'
+        } if (weatherTxt.includes('rain')){
+            weatherTxt = 'Håper du husker hvor du la sydvesten din, for det her blir faenmeg vått'
+        }
+
     }
 
     
