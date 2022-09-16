@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enda en jævla vær-app</title>
+    <title>Enda en vær-app</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div id=app></div>
 
     <script>
+
+        let position;
+   
     //model
         let currentCity = '';
         let weatherIcon = '';
@@ -20,9 +23,21 @@
         let windTxt;
         let degreeFeels = '';
         let soneOgFylke = '';
+        let indexOfÆ;
+        let indexOfØ =0;
+        let indexOfÅ;
+        
     //view
+    
     updateView()
     function updateView(){
+        // if(indexOfØ != 0){
+        //        let index = indexOfØ;
+        //        let sub1 =  currentCity.substr(0,index);
+        //        let sub2 =  currentCity[index] = "ø";
+        //        let sub3 =  currentCity.substr(index+1);
+        //         currentCity = sub1 + sub2 + sub3;
+        //     }
     document.getElementById('app').innerHTML = /*HTML*/`
     <input onchange='setCity(this.value)' class="input" type="text" autofocus placeholder="Hvor bor du?">
     <div class="location">
@@ -44,13 +59,14 @@
     </div>
     `;
     }
-    //controller
-    function setCity(city) {
+    //controller    
+    async function setCity(city) {
         currentCity = city.charAt(0).toUpperCase() + city.slice(1);
-        let citySearch = currentCity.split(' ').join('-');
+        //let citySearch = currentCity.split(' ').join('-').replace(/ø/g, "o").replace(/å/g, "aa").replace(/æ/g, "ae")
+        let citySearch = currentCity.replace(/ /g, "_").replace(/ø/g, "o").replace(/å/g, "aa").replace(/æ/g, "ae")
         console.log(citySearch)
-        updateView()
-        fetch(`https://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}`)
+        //  updateView()
+            fetch(`https://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -74,19 +90,22 @@
                 }
                 updateView()
             })
+           
+         updateView();   
     }
 
     function setFluff(){
         if (weatherTxt.includes('sunny')){
-            weatherTxt = 'Fram med solbrillene, babyolja og paraplydrinken, det er sol som bare faen!'
+            weatherTxt = 'Husk solbriller!'
         } if (weatherTxt.includes('part')){
-            weatherTxt = 'Du kan godt gå ut å myse litt på sola, men det er nesten ikke noe vits for det er faenmeg ikke mer enn såvidt den synes'
-        } if (weatherTxt.includes('cloud')){
-            weatherTxt = 'Nesten like greit å holde seg inne, det er faen ikke sol ute en gang'
+            weatherTxt = 'Du kan godt gå ut å myse litt på sola, men det er nesten ikke noe vits for det er ikke mer enn såvidt den synes'
         } if (weatherTxt.includes('rain')){
-            weatherTxt = 'Håper du husker hvor du la sydvesten din, for det her blir faenmeg vått'
-        } 
-
+            weatherTxt = 'Når det regner på presten, så drypper det på alterguttene.'
+        } if (weatherTxt.includes('overcast')){
+            weatherTxt = 'Det finnes ikke dårlig vær, bare dårlig mindset'
+        } if (weatherTxt.includes('clear')){
+            weatherTxt = 'Det er ikke så alt for ille ute nå altså'
+        }
     }
 
     
