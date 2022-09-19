@@ -11,9 +11,6 @@
     <div id=app></div>
 
     <script>
-
-        let position;
-   
     //model
         let currentCity = '';
         let weatherIcon = '';
@@ -23,21 +20,10 @@
         let windTxt;
         let degreeFeels = '';
         let soneOgFylke = '';
-        let indexOfÆ;
-        let indexOfØ =0;
-        let indexOfÅ;
-        
     //view
     
     updateView()
     function updateView(){
-        // if(indexOfØ != 0){
-        //        let index = indexOfØ;
-        //        let sub1 =  currentCity.substr(0,index);
-        //        let sub2 =  currentCity[index] = "ø";
-        //        let sub3 =  currentCity.substr(index+1);
-        //         currentCity = sub1 + sub2 + sub3;
-        //     }
     document.getElementById('app').innerHTML = /*HTML*/`
     <input onchange='setCity(this.value)' class="input" type="text" autofocus placeholder="Hvor bor du?">
     <div class="location">
@@ -53,7 +39,6 @@
                 ${degrees} <br>
                 <span class="litenTxt">${degreeFeels}</span>
                 </h2>
-            
         </div>
         <div class="temperature-description">${weatherTxt}</div>
     </div>
@@ -84,13 +69,12 @@
                 soneOgFylke = region + '<br>' + tz_id;
                 setFluff()
                 if (citySearch.toLowerCase() == 'drammen'){
-                    degreeFeels = 'men det føles bokstavelig talt, uten å overdrive, ut som helvete fordi det finnes ingen verre plass enn denne parodien av en by'
+                    degreeFeels = 'Gidd å bo her da'
                     degrees = temp_c + '°C';
-                    weatherTxt = 'Flytt herfra ASAP'
+                    weatherTxt = 'Syreregn som vanlig, flytt herfra vær så snill'
                 }
                 updateView()
             })
-           
          updateView();   
     }
 
@@ -106,9 +90,8 @@
         } if (weatherTxt.includes('clear')){
             weatherTxt = 'Det er ikke så alt for ille ute nå altså'
         }
+        
     }
-
-    
     </script>
 </body>
 </html>
