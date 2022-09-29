@@ -51,7 +51,7 @@
         let citySearch = currentCity.replace(/ /g, "_").replace(/ø/g, "o").replace(/å/g, "aa").replace(/æ/g, "ae")
         console.log(citySearch)
         //  updateView()
-            fetch(`https://api.weatherapi.com/v1/current.json?key=9069d5f76aee4dcaab7112412221309&q=${citySearch}`)
+            fetch(`https://api.weatherapi.com/v1/current.json?key=164a3f6460924d838c372110222909&q=${citySearch}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
